@@ -1,13 +1,19 @@
 function(){
   var items = [];
-  for(var i = 0; i < {{DL - product_id}}.length; i++){
+  if({{DL - product_id}} === undefined){
+    var itemlength = 0;
+  } else {
+    var itemlength = {{DL - product_id}}.length
+  };
+  var productVars = [{{DL - product_id}}, {{DL - product_name}}, {{DL - product_discount}}, {{DL - product_brand}}, {{DL - product_price}}, {{DL - product_quantity}}];
+  var itemVars = ["item_id", "item_name","discount", "item_brand", "price", "quantity"];
+  for(var i = 0; i < itemlength; i++){
     var item = {};
-    item.item_id = {{DL - product_id}}[i];
-    item.item_name = {{DL - product_name}}[i];
-    item.discount = {{DL - product_discount}}[i];
-    item.item_brand = {{DL - product_brand}}[i];
-    item.price = {{DL - product_price}}[i];
-    item.quantity = {{DL - product_quantity}}[i];
+    for(var p = 0; p < productVars.length; p++){
+      if(productVars[p]){
+        item[itemVars[p]] = productVars[p][i];
+      }
+    }
     items.push(item);
   };
   return items;  
